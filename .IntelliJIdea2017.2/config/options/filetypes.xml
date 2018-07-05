@@ -2,6 +2,7 @@
   <component name="FileTypeManager" version="17">
     <extensionMap>
       <mapping pattern="Main" type="CLASS" />
+      <mapping pattern="profilePage.html" type="PLAIN_TEXT" />
       <mapping pattern="message-sender-xml" type="PLAIN_TEXT" />
       <mapping pattern="MessageCrudeTest" type="PLAIN_TEXT" />
     </extensionMap>
