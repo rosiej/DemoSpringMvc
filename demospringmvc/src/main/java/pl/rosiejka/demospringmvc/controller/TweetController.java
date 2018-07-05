@@ -18,6 +18,7 @@ public class TweetController {
 
     @Autowired
     private Twitter twitter;
+
     @RequestMapping("/")
     public String helloWorld(@RequestParam(defaultValue = "Tajniki Spring MVC4") String search, Model model){
 
