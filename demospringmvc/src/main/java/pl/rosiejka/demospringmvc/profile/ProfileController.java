@@ -1,11 +1,13 @@
 package pl.rosiejka.demospringmvc.profile;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import pl.rosiejka.demospringmvc.date.USLocalDateFormatter;
 
+import javax.validation.Valid;
 import java.util.Locale;
 
 @Controller
@@ -16,7 +18,10 @@ public class ProfileController {
         return "profile/profileFormPage";
     }
     @RequestMapping(value = "/profile", method = RequestMethod.POST)
-    public String saveProfile(ProfileFormDTO profileFormDTO){
+    public String saveProfile(@Valid ProfileFormDTO profileFormDTO, BindingResult bindingResult){
+        if(bindingResult.hasErrors()){
+            return "profile/profileFormPage";
+        }
         System.out.println("pomyślnie zapisany profil: "+profileFormDTO);
         return "redirect:/profile";
     }
