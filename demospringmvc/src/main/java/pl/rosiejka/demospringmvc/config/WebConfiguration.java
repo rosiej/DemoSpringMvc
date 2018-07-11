@@ -1,5 +1,9 @@
 package pl.rosiejka.demospringmvc.config;
 
+import org.springframework.boot.context.embedded.ConfigurableEmbeddedServletContainer;
+import org.springframework.boot.context.embedded.EmbeddedServletContainerCustomizer;
+import org.springframework.boot.web.servlet.ErrorPage;
+import org.springframework.web.multipart.MultipartException;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -27,5 +31,9 @@ public class WebConfiguration extends WebMvcConfigurerAdapter {
         LocaleChangeInterceptor localeChangeInterceptor = new LocaleChangeInterceptor();
         localeChangeInterceptor.setParamName("lang");
         return localeChangeInterceptor;
+    }
+    @Bean
+    public EmbeddedServletContainerCustomizer containerCustomizer(){
+        return container -> container.addErrorPages(new ErrorPage(MultipartException.class,"/uploadError"));
     }
 }
