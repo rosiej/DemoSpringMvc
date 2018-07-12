@@ -1,5 +1,6 @@
 package pl.rosiejka.demospringmvc.profile;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -14,6 +15,18 @@ import java.util.Locale;
 @Controller
 public class ProfileController {
 
+    private UserProfileSession userProfileSession;
+
+    @Autowired
+    public ProfileController(UserProfileSession userProfileSession) {
+        this.userProfileSession = userProfileSession;
+    }
+
+    @ModelAttribute
+    public ProfileFormDTO getProfileForm(){
+        return userProfileSession.toForm();
+    }
+
     @ModelAttribute("dateFormat")
     public String localeFormat(Locale locale) {
         return USLocalDateFormatter.getPattern(locale);
@@ -23,12 +36,13 @@ public class ProfileController {
     public String displayProfile(ProfileFormDTO profileFormDTO){
         return "profile/profileFormPage";
     }
+
     @RequestMapping(value = "/profile",params = {"save"}, method = RequestMethod.POST)
     public String saveProfile(@Valid ProfileFormDTO profileFormDTO, BindingResult bindingResult){
         if(bindingResult.hasErrors()){
             return "profile/profileFormPage";
         }
-        System.out.println("pomyślnie zapisany profil: "+profileFormDTO);
+        userProfileSession.saveForm(profileFormDTO);
         return "redirect:/profile";
     }
 
