@@ -43,7 +43,7 @@ public class ProfileController {
             return "profile/profileFormPage";
         }
         userProfileSession.saveForm(profileFormDTO);
-        return "redirect:/profile";
+        return "redirect:/search/mixed;keywords="+ String.join(",",profileFormDTO.getTastes());
     }
 
     @RequestMapping(value = "/profile", params = {"addTaste"})
@@ -60,4 +60,7 @@ public class ProfileController {
 
     }
 
+    static void print(){
+        System.out.println("duro jest ...");
+    }
 }
