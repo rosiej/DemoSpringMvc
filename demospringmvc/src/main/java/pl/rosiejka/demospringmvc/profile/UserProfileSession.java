@@ -47,4 +47,20 @@ public class UserProfileSession implements Serializable{
         profileFormDTO.setTastes(taste);
         return profileFormDTO;
     }
+
+    public String getTwitterHandle() {
+        return twitterHandle;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public LocalDate getBirthDate() {
+        return birthDate;
+    }
+
+    public List<String> getTaste() {
+        return taste;
+    }
 }
