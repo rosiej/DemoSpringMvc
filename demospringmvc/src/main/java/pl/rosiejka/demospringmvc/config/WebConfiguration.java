@@ -1,8 +1,12 @@
 package pl.rosiejka.demospringmvc.config;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import org.springframework.boot.context.embedded.ConfigurableEmbeddedServletContainer;
 import org.springframework.boot.context.embedded.EmbeddedServletContainerCustomizer;
 import org.springframework.boot.web.servlet.ErrorPage;
+import org.springframework.context.annotation.Primary;
+import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.web.multipart.MultipartException;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.context.annotation.Bean;
@@ -43,5 +47,12 @@ public class WebConfiguration extends WebMvcConfigurerAdapter {
     @Bean
     public EmbeddedServletContainerCustomizer containerCustomizer(){
         return container -> container.addErrorPages(new ErrorPage(MultipartException.class,"/uploadError"));
+    }
+    @Bean
+    @Primary
+    public ObjectMapper objectMapper (Jackson2ObjectMapperBuilder builder) {
+        ObjectMapper objectMapper = builder.createXmlMapper(false).build();
+        objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
+        return objectMapper;
     }
 }
