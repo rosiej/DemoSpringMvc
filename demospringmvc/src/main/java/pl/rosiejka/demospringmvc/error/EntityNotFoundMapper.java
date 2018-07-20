@@ -10,6 +10,6 @@ public class EntityNotFoundMapper {
     @ExceptionHandler(EntityNotFoundException.class)
     @ResponseStatus(value = HttpStatus.NOT_FOUND, reason = "Zasób nie istnieje")
     public void handleNotFound(){
-
     }
+
 }
