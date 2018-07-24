@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extrasspringsecurity3">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
         <meta name="viewport" content="width=device-width,
@@ -24,6 +25,15 @@
                 </ul>
             </div>
         </nav>
+        <div sec:authorize="isAuthenticated()">
+        jesteś zalogowany jako <b sec:authentication="name" /> z rolami
+        <span sec:authentication="authorities" />
+            <form th:action="@{/logout}" method="post"
+                style="display: inline-block">
+                <input type="submit" value="Wyloguj" />
+            </form>
+            <hr/>
+        </div>
         <section layout:fragment="content">
             <p>Zawartość strony</p>
         </section>
